@@ -1,20 +1,16 @@
 #pragma once
-
+#include "Singleton.h"
 #include <SDL2/SDL.h>
 #include <iostream>
-#include "Timer.h"
-class Engine
+class Engine : public Singleton<Engine>
 {
     public:
-        Engine()
+        int init(SDL_Color bgColor, unsigned screenWidth, unsigned screenHeight)
         {
-        }
-        ~Engine()
-        {
-            SDL_Quit();
-        }
-        int init()
-        {
+            m_bgColor = bgColor;
+            m_screenWidth = screenWidth;
+            m_screenHeight = screenHeight;
+
             if (SDL_Init(SDL_INIT_EVERYTHING) == -1){
                 std::cout << SDL_GetError() << std::endl;
                 return 1;
@@ -34,16 +30,53 @@ class Engine
             }
             return 0;
         }
-        static const int m_screenWidth{640};
-        static const int m_screenHeight{480};
-        static SDL_Window *m_window;
-        static SDL_Renderer *m_renderer;
-        static SDL_Event m_event;
-        static Timer m_timer;
+        void kill()
+        {
+            SDL_Quit();
+        }
+        void clearScreen()
+        {
+            SDL_SetRenderDrawColor(m_renderer, m_bgColor.r, m_bgColor.g, m_bgColor.b, m_bgColor.a);
+            SDL_RenderClear(m_renderer);
+        }
+
+        SDL_Window* getWindow()
+        {
+            return m_window;
+        }
+        SDL_Renderer* getRenderer()
+        {
+            return m_renderer;
+        }
+        SDL_Event& getEvent()
+        {
+            return m_event;
+        }
+        SDL_Color& getBgColor()
+        {
+            return m_bgColor;
+        }
+        unsigned getScreenWidth()
+        {
+            return m_screenWidth;
+        }
+        unsigned getScreenHeight()
+        {
+            return m_screenHeight;
+        }
     private:
+        unsigned m_screenWidth;
+        unsigned m_screenHeight;
+        SDL_Color m_bgColor;
+        SDL_Event m_event;
+
+        SDL_Window *m_window;
+        SDL_Renderer *m_renderer;
+
+        Engine():m_window{nullptr}, m_renderer{nullptr},m_screenWidth(0),m_screenHeight(0)
+        {
+        }
+
+        friend class Singleton<Engine>;
  
 };
-SDL_Window* Engine::m_window{nullptr};
-SDL_Renderer* Engine::m_renderer{nullptr};
-SDL_Event Engine::m_event;
-Timer Engine::m_timer;

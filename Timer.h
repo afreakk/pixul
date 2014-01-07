@@ -1,12 +1,10 @@
 #pragma once
+#include "Singleton.h"
 #include <SDL2/SDL.h>
 #include "Utils.h"
-class Timer
+class Timer : public Singleton<Timer>
 {
     public:
-        Timer():m_currentTime(0),m_deltaTime(0)
-        {
-        }
         void update()
         {
             Uint32 lastTime = m_currentTime;
@@ -15,9 +13,6 @@ class Timer
 
             m_dCurrentTime = intToDouble(m_currentTime)/1000.0;
             m_dDeltaTime = intToDouble(m_deltaTime)/1000.0;
-        }
-        ~Timer()
-        {
         }
         Uint32 deltaTime()
         {
@@ -37,8 +32,12 @@ class Timer
         }
 
     private:
+        Timer():m_currentTime(0),m_deltaTime(0)
+        {
+        }
         Uint32 m_currentTime;
         Uint32 m_deltaTime;
         double m_dDeltaTime;
         double m_dCurrentTime;
+        friend class Singleton<Timer>;
 };

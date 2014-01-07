@@ -1,4 +1,5 @@
 #pragma once
+#include "Timer.h"
 class Gravity
 {
     public:
@@ -38,11 +39,11 @@ class Gravity
         void increaseABSVelocity()
         {
             if(m_absVelocity < m_maxVelocity)
-                m_absVelocity += m_acceleration*Engine::m_timer.deltaTimeD();
+                m_absVelocity += m_acceleration*Timer::getInstance()->deltaTimeD();
         }
         void applyGravity()
         {
-            m_fPoint.y += m_currentVelocity*Engine::m_timer.deltaTimeD();
+            m_fPoint.y += m_currentVelocity*Timer::getInstance()->deltaTimeD();
             m_point->y = floatToInt(m_fPoint.y);
         }
         SDL_Point* m_point;

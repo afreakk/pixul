@@ -6,11 +6,12 @@
 #include "Engine.h"
 #include "Gravity.h"
 #include "PixelData.h"
-using namespace std;
 class Player
 {
     public: 
-        Player():m_radius(10), m_position{Engine::m_screenWidth/2, Engine::m_screenHeight/2}, m_color{255, 150, 140, 255}, downPull(true)
+        Player():m_radius(10), 
+        m_position{static_cast<int>(Engine::getInstance()->getScreenWidth()/2), static_cast<int>(Engine::getInstance()->getScreenHeight()/2)}
+        , m_color{255, 150, 140, 255}, downPull(true)
         {
             m_playerGravity = Gravity(&m_position, 100.0f, 1000.0f);
         }
@@ -31,8 +32,8 @@ class Player
         }
         void draw()
         {
-            SDL_SetRenderDrawColor(Engine::m_renderer, m_color.r, m_color.g, m_color.b, m_color.a);
-            SDL_RenderDrawPoints( Engine::m_renderer, &m_graphics[0], m_graphics.size() );
+            SDL_SetRenderDrawColor( Engine::getInstance()->getRenderer(), m_color.r, m_color.g, m_color.b, m_color.a);
+            SDL_RenderDrawPoints(   Engine::getInstance()->getRenderer(), &m_graphics[0], m_graphics.size() );
         }
         void hitTest(PixelData& pixelData)
         {
@@ -53,7 +54,7 @@ class Player
             if(copyOfInvertGravity != downPull)
                 m_playerGravity.setDownPull(downPull);
         }
-        vector <SDL_Point> m_graphics;
+        std::vector <SDL_Point> m_graphics;
         bool downPull;
         SDL_Point m_position;
         SDL_Color m_color;

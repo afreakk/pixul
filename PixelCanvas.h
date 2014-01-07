@@ -2,7 +2,6 @@
 
 #include <SDL2/SDL.h>
 #include "PixelData.h"
-using namespace std;
 class PixelCanvas
 {
     public:
@@ -19,8 +18,8 @@ class PixelCanvas
         }
         void draw()
         {
-            SDL_SetRenderDrawColor(Engine::m_renderer, m_color.r, m_color.g, m_color.b, m_color.a);
-            SDL_RenderDrawPoints( Engine::m_renderer, m_graphics, m_size );
+            SDL_SetRenderDrawColor(Engine::getInstance()->getRenderer(), m_color.r, m_color.g, m_color.b, m_color.a);
+            SDL_RenderDrawPoints( Engine::getInstance()->getRenderer(), m_graphics, m_size );
         }
     private:
         SDL_Color m_color;

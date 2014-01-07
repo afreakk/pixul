@@ -22,12 +22,11 @@ class LevelManager
             return 0;
         }
         static bool m_quit;
-        static SDL_Color bgColor;
     private:
         void systemLoop()
         {
-            Engine::m_timer.update();
-            systemHandleEvent(Engine::m_event);
+            Timer::getInstance()->update();
+            systemHandleEvent(Engine::getInstance()->getEvent());
             systemUpdate();
             systemRender();
         }
@@ -39,20 +38,9 @@ class LevelManager
         }
         void systemRender()
         {
-            SDL_SetRenderDrawColor(Engine::m_renderer, bgColor.r, bgColor.g, bgColor.b, bgColor.a);
-            SDL_RenderClear(Engine::m_renderer);
+            Engine::getInstance()->clearScreen();
             m_state->render();
-            SDL_RenderPresent(Engine::m_renderer);
-        }
-        void changeLevelState(const LevelEnums newLevelID)
-        {
-            delete m_state;
-            switch(newLevelID)
-            {
-                case LevelEnums::LEVEL_ONE:   m_state = new LevelStateOne();   break;
-                case LevelEnums::LEVEL_TWO:   m_state = new LevelStateTwo();   break;
-                case LevelEnums::LEVEL_THREE: m_state = new LevelStateThree(); break;
-            }
+            SDL_RenderPresent(Engine::getInstance()->getRenderer());
         }
         void systemHandleEvent(SDL_Event& evnt)
         {
@@ -67,7 +55,16 @@ class LevelManager
                 }
             }
         }
+        void changeLevelState(const LevelEnums newLevelID)
+        {
+            delete m_state;
+            switch(newLevelID)
+            {
+                case LevelEnums::LEVEL_ONE:   m_state = new LevelStateOne();   break;
+                case LevelEnums::LEVEL_TWO:   m_state = new LevelStateTwo();   break;
+                case LevelEnums::LEVEL_THREE: m_state = new LevelStateThree(); break;
+            }
+        }
         LevelState* m_state;
 };
 bool        LevelManager::m_quit{false};
-SDL_Color   LevelManager::bgColor{25,255,255,255};
