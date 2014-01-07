@@ -2,21 +2,21 @@
 #include "LevelState.h"
 #include "Player.h"
 #include "Ground.h"
-#include "PixelData.h"
 #include "PixelCanvas.h"
+#include "PixelDataHandler.h"
 class LevelStateOne: public LevelState
 {
     public:
         LevelStateOne():LevelState(LevelEnums::LEVEL_ONE)
         {
-            m_pixelData.addPoints(m_ground.getAllPoints());
+            m_pixelDataHandler.registerEditor(&m_player);
+            m_pixelDataHandler.registerSubscriber(&m_pixelCanvas);
+            m_pixelDataHandler.addPoints(m_ground.getAllPoints());
         }
         LevelEnums update() override
         {
             m_player.update();
-            m_player.hitTest(m_pixelData);
-            m_pixelData.process();
-            m_pixelCanvas.update(m_pixelData);
+            m_pixelDataHandler.write();
             return LevelEnums::LEVEL_ONE;
         }
         void handleEvent(const SDL_Event& evnt) override
@@ -31,8 +31,8 @@ class LevelStateOne: public LevelState
     private:
         Player m_player;
         Ground m_ground;
-        PixelData m_pixelData;
         PixelCanvas m_pixelCanvas;
+        PixelDataHandler m_pixelDataHandler;
         
 };
 

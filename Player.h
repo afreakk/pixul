@@ -5,8 +5,8 @@
 #include <vector>
 #include "Engine.h"
 #include "Gravity.h"
-#include "PixelData.h"
-class Player
+#include "PixelDataEditor.h"
+class Player : public PixelDataEditor
 {
     public: 
         Player():m_radius(10), 
@@ -35,7 +35,7 @@ class Player
             SDL_SetRenderDrawColor( Engine::getInstance()->getRenderer(), m_color.r, m_color.g, m_color.b, m_color.a);
             SDL_RenderDrawPoints(   Engine::getInstance()->getRenderer(), &m_graphics[0], m_graphics.size() );
         }
-        void hitTest(PixelData& pixelData)
+        void editPixelData(PixelData& pixelData) override
         {
             for(auto pixel : m_graphics)
             {

@@ -40,7 +40,7 @@ class Engine : public Singleton<Engine>
             SDL_RenderClear(m_renderer);
         }
 
-        SDL_Window* getWindow()
+        const SDL_Window* getWindow()
         {
             return m_window;
         }

@@ -1,8 +1,8 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include "PixelData.h"
-class PixelCanvas
+#include "PixelDataReceiver.h"
+class PixelCanvas : public PixelDataReceiver
 {
     public:
         PixelCanvas():m_color{0,150,40,255}
@@ -11,7 +11,7 @@ class PixelCanvas
         ~PixelCanvas()
         {
         }
-        void update(PixelData& pixelData)
+        void receivePixelData(const PixelData& pixelData) override
         {
             m_graphics = pixelData.getMinimalPixels();
             m_size = pixelData.getSize();
