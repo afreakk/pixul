@@ -14,3 +14,4 @@
 
 #own types
 *.x
+*.sconsign.dblite
