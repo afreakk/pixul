@@ -5,6 +5,7 @@
 #include <vector>
 #include "Engine.h"
 #include "Gravity.h"
+#include "PixelData.h"
 using namespace std;
 class Player
 {
@@ -32,6 +33,13 @@ class Player
         {
             SDL_SetRenderDrawColor(Engine::m_renderer, m_color.r, m_color.g, m_color.b, m_color.a);
             SDL_RenderDrawPoints( Engine::m_renderer, &m_graphics[0], m_graphics.size() );
+        }
+        void hitTest(PixelData& pixelData)
+        {
+            for(auto pixel = m_graphics.begin(); pixel != m_graphics.end(); ++pixel)
+            {
+                pixelData.removePixel(*pixel);
+            }
         }
     private:
         void keyDown(SDL_Keycode button)

@@ -1,7 +1,18 @@
-#pragma once
+#ifndef _UTILS_H_
+#define _UTILS_H_
+
+////////////////////////////////////////////////////////////////////////
+
 #include <vector>
 #include <math.h>
 using namespace std;
+struct fPoint
+{
+    float x;
+    float y;
+    fPoint():x(0),y(0){}
+    fPoint(float xx, float yy):x(xx),y(yy){}
+};
 int floatToInt(float f)
 {
     return static_cast<int>(round(f));
@@ -14,13 +25,7 @@ float intToDouble(int i)
 {
     return floor(static_cast<double>(i));
 }
-struct fPoint
-{
-    float x;
-    float y;
-    fPoint():x(0),y(0){}
-    fPoint(float xx, float yy):x(xx),y(yy){}
-};
+#include <SDL2/SDL.h>
 void injectCube( vector<SDL_Point>& array,int startWidth, int startHeight, int endWidth,int endHeight)
 {
     for(int x=startWidth; x< endWidth; x++)
@@ -30,6 +35,17 @@ void injectCube( vector<SDL_Point>& array,int startWidth, int startHeight, int e
             array.push_back( SDL_Point{x,y} );
         }
     }
+}
+int sumOfPoints(SDL_Point* pointArr, int size)
+{
+    int sum = 0;
+    for(int i=0; i<size; i++)
+    {
+        sum += pointArr->x;
+        sum += pointArr->y;
+        pointArr++;
+    }
+    return sum;
 }
 void circle(int n_cx, int n_cy, int radius, vector<SDL_Point>& array)
 {
@@ -74,3 +90,12 @@ void circle(int n_cx, int n_cy, int radius, vector<SDL_Point>& array)
         }
     }
 }
+#include <boost/lexical_cast.hpp>
+string pointToString(const SDL_Point& point)
+{
+    return (boost::lexical_cast<string>(point.x)+"."+boost::lexical_cast<string>(point.y));
+}
+
+////////////////////////////////////////////////////////////////////////
+
+#endif /*UTILS_H*/

@@ -1,4 +1,5 @@
 
+
 import os
 colors = {}
 colors['cyan']   = '\033[96m'
@@ -28,6 +29,9 @@ ranlib_library_message = '%sRanlib Library %s==> %s$TARGET%s' % \
 link_shared_library_message = '%sLinking Shared Library %s==> %s$TARGET%s' % \
    (colors['red'], colors['purple'], colors['yellow'], colors['end'])
 
+MainHeaderPaths = ['/home/afreak/libs/unitTest/src/']
+MainLibraryPaths = ['/home/afreak/libs/unitTest/Deliv/Release/']
+MainLibraryLinks = [ 'SDL2main', 'SDL2', 'UnitTest++']
 
 env = Environment( ENV = { 'PATH' : os.environ['PATH'], 'TERM' : os.environ['TERM'], 'HOME' : os.environ['HOME'] },
     CXXCOMSTR = compile_source_message,
@@ -40,9 +44,11 @@ env = Environment( ENV = { 'PATH' : os.environ['PATH'], 'TERM' : os.environ['TER
     LINKCOMSTR = link_program_message,
     JAVACCOMSTR = compile_source_message,  
     CCFLAGS = '-g',
-    CXXFLAGS="-std=c++0x");
-MainLibraryLinks = [ 'SDL2main', 'SDL2']
-env.Append(LIBS = MainLibraryLinks);
-sourceFiles = ['main.cpp']
-env.Program(target = 'program.x', source = sourceFiles);
+    CXXFLAGS="-std=c++0x",
+    CPPPATH = MainHeaderPaths,
+    LIBPATH = MainLibraryPaths,
+    LIBS = MainLibraryLinks)
+
+sourceFiles = ['main.cpp', 'Utils_Test.cpp']
+env.Program(target = 'prograxm.x', source = sourceFiles);
 

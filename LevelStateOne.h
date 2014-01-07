@@ -2,16 +2,22 @@
 #include "LevelState.h"
 #include "Player.h"
 #include "Ground.h"
+#include "PixelData.h"
+#include "PixelCanvas.h"
 class LevelStateOne: public LevelState
 {
     public:
         LevelStateOne()
         {
             LevelState::LevelID = LEVEL_ONE;
+            m_pixelData.addPoints(m_ground.getAllPoints());
         }
         LevelEnums update()
         {
             m_player.update();
+            m_player.hitTest(m_pixelData);
+            m_pixelData.process();
+            m_pixelCanvas.update(m_pixelData);
             return LEVEL_ONE;
         }
         void handleEvent(SDL_Event& evnt)
@@ -21,47 +27,13 @@ class LevelStateOne: public LevelState
         void render()
         {
             m_player.draw();
-            m_ground.draw();
+            m_pixelCanvas.draw();
         }
     private:
         Player m_player;
         Ground m_ground;
+        PixelData m_pixelData;
+        PixelCanvas m_pixelCanvas;
         
 };
 
-class LevelStateTwo: public LevelState
-{
-    public:
-        LevelStateTwo()
-        {
-            LevelState::LevelID = LEVEL_TWO;
-        }
-        LevelEnums update()
-        {
-            return LEVEL_TWO;
-        }
-        void handleEvent(SDL_Event& evnt)
-        {
-        }
-        void render()
-        {
-        }
-};
-class LevelStateThree: public LevelState
-{
-    public:
-        LevelStateThree()
-        {
-            LevelState::LevelID = LEVEL_THREE;
-        }
-        LevelEnums update()
-        {
-            return LEVEL_THREE;
-        }
-        void handleEvent(SDL_Event& evnt)
-        {
-        }
-        void render()
-        {
-        }
-};
