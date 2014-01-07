@@ -7,24 +7,23 @@
 class LevelStateOne: public LevelState
 {
     public:
-        LevelStateOne()
+        LevelStateOne():LevelState(LevelEnums::LEVEL_ONE)
         {
-            LevelState::LevelID = LEVEL_ONE;
             m_pixelData.addPoints(m_ground.getAllPoints());
         }
-        LevelEnums update()
+        LevelEnums update() override
         {
             m_player.update();
             m_player.hitTest(m_pixelData);
             m_pixelData.process();
             m_pixelCanvas.update(m_pixelData);
-            return LEVEL_ONE;
+            return LevelEnums::LEVEL_ONE;
         }
-        void handleEvent(SDL_Event& evnt)
+        void handleEvent(const SDL_Event& evnt) override
         {
             m_player.handleEvent(evnt);
         }
-        void render()
+        void render() override
         {
             m_player.draw();
             m_pixelCanvas.draw();

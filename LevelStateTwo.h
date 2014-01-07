@@ -2,36 +2,34 @@
 class LevelStateTwo: public LevelState
 {
     public:
-        LevelStateTwo()
-        {
-            LevelState::LevelID = LEVEL_TWO;
-        }
-        LevelEnums update()
-        {
-            return LEVEL_TWO;
-        }
-        void handleEvent(SDL_Event& evnt)
+        LevelStateTwo():LevelState(LevelEnums::LEVEL_TWO)
         {
         }
-        void render()
+        LevelEnums update() override
+        {
+            return LevelEnums::LEVEL_TWO;
+        }
+        void handleEvent(const SDL_Event& evnt) override
+        {
+        }
+        void render() override
         {
         }
 };
 class LevelStateThree: public LevelState
 {
     public:
-        LevelStateThree()
-        {
-            LevelState::LevelID = LEVEL_THREE;
-        }
-        LevelEnums update()
-        {
-            return LEVEL_THREE;
-        }
-        void handleEvent(SDL_Event& evnt)
+        LevelStateThree():LevelState(LevelEnums::LEVEL_THREE)
         {
         }
-        void render()
+        LevelEnums update() override
+        {
+            return LevelEnums::LEVEL_THREE;
+        }
+        void handleEvent(const SDL_Event& evnt) override
+        {
+        }
+        void render() override
         {
         }
 };

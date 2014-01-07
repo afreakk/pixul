@@ -17,7 +17,7 @@ class Player
         ~Player()
         {
         }
-        void handleEvent(SDL_Event& evnt)
+        void handleEvent(const SDL_Event& evnt)
         {
             switch(evnt.type)
             {
@@ -36,13 +36,13 @@ class Player
         }
         void hitTest(PixelData& pixelData)
         {
-            for(auto pixel = m_graphics.begin(); pixel != m_graphics.end(); ++pixel)
+            for(auto pixel : m_graphics)
             {
-                pixelData.removePixel(*pixel);
+                pixelData.removePixel(pixel);
             }
         }
     private:
-        void keyDown(SDL_Keycode button)
+        void keyDown(const SDL_Keycode button)
         {
             bool copyOfInvertGravity = downPull;
             switch(button)

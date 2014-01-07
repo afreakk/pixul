@@ -14,43 +14,37 @@ class PixelData
         {
             delete[] m_minimalPixels;
         }
-        void addPoint(SDL_Point point)
+        void addPoint(const SDL_Point point)
         {
             string entry = pointToString(point);
             m_pixelMap[ entry ] = point;
         }
-        void addPoints(vector<SDL_Point>& points)
+        void addPoints(const vector<SDL_Point>& points)
         {
-            for(int i=0; i<points.size(); i++)
+            for(const auto point : points)
             {
-                string entry = pointToString(points[i]);
-                auto it = m_pixelMap.find(entry);
-                if(it != m_pixelMap.end())
-                    cout << "duplicate: "<<entry<<" - " <<  it->first  << endl; 
-                m_pixelMap[ entry ] = points[i];
+                string entry = pointToString(point);
+                m_pixelMap[ entry ] = point;
             }
-        }
-        SDL_Point* getMinimalPixels()
-        {
-           return m_minimalPixels; 
         }
         void process()
         {
             m_minimalPixels= new SDL_Point[m_pixelMap.size()];
-            auto itt = begin(m_pixelMap);
-            for(int i=0; i<m_pixelMap.size(); i++)
-            {
-                m_minimalPixels[i] = itt->second;
-                itt++;
-            }
-
+            int i=0;
+            for(auto pixelMapItterator : m_pixelMap)
+                m_minimalPixels[i++] = pixelMapItterator.second;
         }
-        void removePixel(SDL_Point& coordinate)
+        void removePixel(const SDL_Point& coordinate)
         {
             string entry = pointToString(coordinate);
             m_pixelMap.erase(entry);
         }
-        unsigned int getSize()
+
+        SDL_Point* getMinimalPixels() const
+        {
+           return m_minimalPixels; 
+        }
+        unsigned int getSize() const
         {
             return m_pixelMap.size();
         }

@@ -1,5 +1,5 @@
 #pragma once
-enum LevelEnums
+enum class LevelEnums
 {
     LEVEL_ONE,
     LEVEL_TWO,
@@ -8,16 +8,16 @@ enum LevelEnums
 class LevelState
 {
     public:
-        LevelState()
+        LevelState(const LevelEnums ID):LevelID(ID)
         {
         }
         virtual LevelEnums update()=0;
-        virtual void handleEvent(SDL_Event& evnt)=0;
+        virtual void handleEvent(const SDL_Event& evnt)=0;
         virtual void render()=0;
         ~LevelState()
         {
         }
-        LevelEnums LevelID;
+        const LevelEnums LevelID;
         
 };
 
