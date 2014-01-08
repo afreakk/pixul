@@ -1,6 +1,7 @@
 #include "Engine.h"
 #include "LevelManager.h"
 #include "Timer.h"
+#include "setFPS.h"
 int main()
 {
     //init

@@ -2,6 +2,7 @@
 #include "Singleton.h"
 #include <SDL2/SDL.h>
 #include <iostream>
+using namespace std;
 class Engine : public Singleton<Engine>
 {
     public:
@@ -39,7 +40,6 @@ class Engine : public Singleton<Engine>
             SDL_SetRenderDrawColor(m_renderer, m_bgColor.r, m_bgColor.g, m_bgColor.b, m_bgColor.a);
             SDL_RenderClear(m_renderer);
         }
-
         const SDL_Window* getWindow()
         {
             return m_window;
@@ -64,6 +64,11 @@ class Engine : public Singleton<Engine>
         {
             return m_screenHeight;
         }
+        void setWindowTitle(const char* title)
+        {
+            cout << "nowTitle: "<< title<< endl;
+            SDL_SetWindowTitle(m_window,title);
+        }
     private:
         unsigned m_screenWidth;
         unsigned m_screenHeight;
@@ -80,3 +85,4 @@ class Engine : public Singleton<Engine>
         friend class Singleton<Engine>;
  
 };
+
