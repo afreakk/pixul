@@ -94,11 +94,6 @@ void circle(int n_cx, int n_cy, int radius, vector<SDL_Point>& array)
         }
     }
 }
-#include <boost/lexical_cast.hpp>
-string pointToString(const SDL_Point& point)
-{
-    return (boost::lexical_cast<string>(point.x)+"."+boost::lexical_cast<string>(point.y));
-}
 
 ////////////////////////////////////////////////////////////////////////
 

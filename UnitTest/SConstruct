@@ -49,6 +49,6 @@ env = Environment( ENV = { 'PATH' : os.environ['PATH'], 'TERM' : os.environ['TER
     LIBPATH = MainLibraryPaths,
     LIBS = MainLibraryLinks)
 
-sourceFiles = ['main.cpp', 'Utils_Test.cpp']
+sourceFiles = ['main.cpp', 'Utils_Test.cpp', 'PixelPublisher_Test.cpp']
 env.Program(target = 'prograxm.x', source = sourceFiles);
 

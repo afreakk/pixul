@@ -1,5 +1,8 @@
-#pragma once
-#include "../PixelDataPublisher.h"
+#ifndef _MOCKRECEIVEEDITOR_H
+#define _MOCKRECEIVEEDITOR_H
+
+#include "../PixelDataReceiver.h"
+#include "../PixelDataEditor.h"
 enum class EditorEnums
 {
     REMOVE,
@@ -64,4 +67,6 @@ class mockEditor:public PixelDataEditor
         vector<SDL_Point> m_points;
         EditorEnums m_mode;
 };
+
+#endif /* _MOCKRECEIVEEDITOR_H */
 

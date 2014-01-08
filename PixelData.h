@@ -1,9 +1,15 @@
 #pragma once
+#include <boost/lexical_cast.hpp>
+#include <string>
+#include <SDL2/SDL.h>
+using namespace std;
+string pointToString(const SDL_Point& point)
+{
+    return (boost::lexical_cast<string>(point.x)+"."+boost::lexical_cast<string>(point.y));
+}
 #include "Utils.h"
 #include <vector>
 #include <map>
-#include <string>
-using namespace std;
 class PixelData
 {
     public:
