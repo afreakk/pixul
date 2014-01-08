@@ -1,16 +1,15 @@
-
 #pragma once
 #include "PixelDataReceiver.h"
 #include "PixelDataEditor.h"
 #include "PixelData.h"
 using namespace std;
-class PixelDataHandler
+class PixelDataPublisher
 {
     public:
-        PixelDataHandler()
+        PixelDataPublisher()
         {
         }
-        ~PixelDataHandler()
+        ~PixelDataPublisher()
         {
         }
         void registerSubscriber(PixelDataReceiver* subscriber)
@@ -21,7 +20,7 @@ class PixelDataHandler
         {
             m_editors.push_back(editor);
         }
-        void write()
+        void updateData()
         {
             for(auto editor:m_editors)
                 editor->editPixelData(m_pixelData);
@@ -43,6 +42,7 @@ class PixelDataHandler
             {
                 for(auto subscriber : m_subscribers)
                     subscriber->receivePixelData(m_pixelData);
+                m_pixelData.resetDidUpdate();
             }
         }
         PixelData m_pixelData;

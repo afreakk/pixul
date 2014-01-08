@@ -17,6 +17,10 @@ int floatToInt(float f)
 {
     return static_cast<int>(round(f));
 }
+int doubleToInt(double f)
+{
+    return static_cast<int>(round(f));
+}
 float intToFloat(int i)
 {
     return floor(static_cast<float>(i));

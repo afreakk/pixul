@@ -1,5 +1,5 @@
 #pragma once
-#include "../PixelDataHandler.h"
+#include "../PixelDataPublisher.h"
 enum class EditorEnums
 {
     REMOVE,
@@ -43,9 +43,7 @@ class mockEditor:public PixelDataEditor
             {
                 case EditorEnums::REMOVE:
                     for(auto itt : m_points)
-                    {
                         pixelData.removePixel(itt);
-                    }
                     break;
                 case EditorEnums::ADD:
                     pixelData.addPoints(m_points);

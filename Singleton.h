@@ -10,10 +10,7 @@ class Singleton
         static T* getInstance(Args... args)
         {
             if (!instance_)
-            {
                 instance_ = new T(std::forward<Args>(args)...);
-            }
-
             return instance_;
         }
 
