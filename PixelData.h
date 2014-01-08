@@ -27,13 +27,13 @@ class PixelData
                 string entry = pointToString(point);
                 m_pixelMap[ entry ] = point;
             }
-            process();
+            m_didUpdate = true;
         }
         void removePixel(const SDL_Point& coordinate)
         {
             string entry = pointToString(coordinate);
             m_pixelMap.erase(entry);
-            process();
+            m_didUpdate = true;
         }
         SDL_Point* getMinimalPixels() const
         {
@@ -51,15 +51,14 @@ class PixelData
         {
             m_didUpdate = false;
         }
-    private:
         void process()
         {
             m_minimalPixels= new SDL_Point[m_pixelMap.size()];
             int i=0;
             for(auto pixelMapItterator : m_pixelMap)
                 m_minimalPixels[i++] = pixelMapItterator.second;
-            m_didUpdate = true;
         }
+    private:
 
         map<string,SDL_Point>   m_pixelMap;
         SDL_Point*              m_minimalPixels;

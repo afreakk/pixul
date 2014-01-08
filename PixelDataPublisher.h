@@ -40,6 +40,7 @@ class PixelDataPublisher
         {
             if(m_pixelData.didUpdate())
             {
+                m_pixelData.process();
                 for(auto subscriber : m_subscribers)
                     subscriber->receivePixelData(m_pixelData);
                 m_pixelData.resetDidUpdate();
